@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarjeta de San Valentín</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #ffe6e6;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .initial-content, .message-content {
+            transition: opacity 0.5s ease-in-out;
+            position: absolute;
+            width: 100%;
+            left: 0;
+            padding: 2rem;
+            box-sizing: border-box;
+        }
+
+        .message-content {
+            opacity: 0;
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 300px;
+        }
+
+        .heart {
+            color: #ff4d4d;
+            font-size: 50px;
+            margin-bottom: 20px;
+            animation: pulse 1.5s infinite;
+        }
+
+        .title {
+            color: #ff4d4d;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .message {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .signature {
+            font-style: italic;
+            color: #ff4d4d;
+            margin-top: 20px;
+        }
+
+        button {
+            background: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background 0.3s;
+            z-index: 2;
+            margin: 20px 0;
+        }
+
+        button:hover {
+            background: #ff3333;
+        }
+
+        #love-message {
+            color: #ff4d4d;
+            font-size: 24px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .floating-heart {
+            position: absolute;
+            font-size: 20px;
+            animation: float 3s ease-in infinite;
+            opacity: 0;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) scale(0.5);
+                opacity: 0;
+            }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .visible {
+            opacity: 1;
+            pointer-events: all;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="initial-content">
+            <div class="heart">❤️</div>
+            <h1 class="title">¿Quieres ser mi San Valentin?</h1>
+            <p class="message">
+                En este día tan especial, quiero decirte que eres la persona más importante en mi vida. 
+                Cada momento contigo es un regalo que atesoro en mi corazón.
+            </p>
+            <p class="signature">Con amor, Yair Yosef Martinez Frias</p>
+            <button onclick="showLove()">Click aquí ❤️</button>
+        </div>
+        <div class="message-content">
+            <div id="love-message"></div>
+        </div>
+    </div>
+
+    <script>
+        const messages = [
+            "Te amo más cada día, Eres mi universo y por quien me eszuerzo dia a dia para poder enseñarte de lo que soy capaz. Quiero estar contigo este dia especial y solo anelo estar contigo porque la amo tal y como eres, porque nadie llena mi alma tanto como tu lo haces, eres quine anhelo y con quien deseo pasar mis dias. ❤",
+
+            
+        ];
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'floating-heart';
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + '%';
+            document.querySelector('.message-content').appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 3000);
+        }
+
+        function showLove() {
+            const initialContent = document.querySelector('.initial-content');
+            const messageContent = document.querySelector('.message-content');
+            const messageElement = document.getElementById('love-message');
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+
+            initialContent.classList.add('hidden');
+            messageContent.classList.add('visible');
+            messageElement.textContent = randomMessage;
+
+            // Crear corazones flotantes periódicamente
+            setInterval(createHeart, 300);
+        }
+    </script>
+</body>
+</html>
